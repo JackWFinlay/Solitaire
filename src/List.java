@@ -1,5 +1,3 @@
-import java.util.Iterator;
-
 /**
  * @author Jack Finlay - 1399273
  */
@@ -16,8 +14,6 @@ public interface List<E> extends Structure {
 
     public E remove(int i);
 
-    public E set(int i, E o);
-
-    public Iterator<E> iterator();
+    public void set(int i, E o);
 
 }
