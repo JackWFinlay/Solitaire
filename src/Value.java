@@ -13,11 +13,11 @@ public enum Value {
         this.val = val;
     }
 
-    public String getVal() {
-        return val;
-    }
-
     public int getRank() {
         return rank;
+    }
+
+    public String getVal() {
+        return val;
     }
 }

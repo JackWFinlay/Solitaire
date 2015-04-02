@@ -1,3 +1,5 @@
+import java.awt.*;
+
 /**
  * @author Jack Finlay - 1399273
  */
@@ -19,6 +21,13 @@ public class Card {
         return this.suit.getColor();
     }
 
+    public String toString() {
+        return (suit.getSuit() + value.getVal());
+    }
+
+    public void paintThis(Graphics g) {
+        // TODO
+    }
 
 }
 

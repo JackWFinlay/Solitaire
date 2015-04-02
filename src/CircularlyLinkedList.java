@@ -3,10 +3,12 @@
  */
 public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
 
-    private Node<E> tail;
+    protected SinglyLinkedList<E> data;
+    protected Node<E> tail;
 
     public CircularlyLinkedList() {
-        super();
+        data = new SinglyLinkedList<E>();
+        tail = null;
     }
 
     @Override
@@ -27,7 +29,8 @@ public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
         }
 
         if (current == null) {
-            current = new Node<E>(o, head);
+            current = new Node<E>(o, tail.next);
+            tail = current;
         } else {
             current.next = current;
             current = new Node<E>(o, current.next);
@@ -37,4 +40,50 @@ public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
 
     }
 
+    @Override
+    public E remove(int i) {
+        E element = null;
+
+        if (i < count) {
+
+            Node<E> current = tail.next;
+            for (int j = 0; j < (i - 1); j++) {
+                // Node before the one you want to remove.
+                current = current.next;
+            }
+
+            element = (E) current.next.value();
+            current.next = current.next.next;
+
+            if (element == tail.value()) {
+                tail = current;
+            }
+
+            count--;
+        }
+
+        return element;
+    }
+
+    @Override
+    public void set(int i, E o) {
+        int count = 0;
+        Node<E> current = head;
+
+        while (count < i) {
+            if (current.next == null) {
+                current.next = new Node<E>(null, null);
+                current = current.next;
+            } else {
+                current = current.next;
+            }
+        }
+
+        if (current == null) {
+            current = new Node<E>(o, tail.next);
+            tail = current;
+        } else {
+            current = new Node<E>(o, current.next);
+        }
+    }
 }
