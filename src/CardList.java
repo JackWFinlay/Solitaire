@@ -1,10 +1,12 @@
 /**
  * @author Jack Finlay - 1399273
  */
+
+@SuppressWarnings("unchecked")
 public class CardList extends SinglyLinkedList {
-    SinglyLinkedList<Card> cards;
-    int openedIndex;
-    Card tailCard;
+    private SinglyLinkedList<Card> cards;
+    private int openedIndex;
+    private Card tailCard;
 
     public SinglyLinkedList<Card> cut(int index) {
         SinglyLinkedList cutList = null;
@@ -29,6 +31,7 @@ public class CardList extends SinglyLinkedList {
             tailCard = node.value();
             if (tailCard != null) {
                 tailCard.setOpen(true);
+                openedIndex = cards.indexOf(tailCard);
             }
         }
 
@@ -36,8 +39,65 @@ public class CardList extends SinglyLinkedList {
 
     }
 
-    
+    public void link(CardList other) {
+        // Check not the same colour, and head of this list is one less than the tail of other.
+        if ((other.tailCard.getColour().equals(tailCard.getColour())) &&
+                (other.tailCard.getValue() - this.cards.head.value().getValue() == 1)) {
 
+            Node<Card> node = other.head;
+
+            // Get tail node.
+            while (node.next != null) {
+                node = node.next;
+            }
+
+            // Connect the tail of other to head of this CardList.
+            node.next = this.cards.head;
+
+        }
+
+    }
+
+    public void add(Card c) {
+        // Check not the same colour, and head of this list is one less than the tail of other.
+        if ((tailCard.getColour().equals(c.getColour())) &&
+                (tailCard.getValue() - c.getValue() == 1)) {
+
+            Node node = head;
+
+            // Get tail node.
+            while (node.next != null) {
+                node = node.next;
+            }
+
+            // Add c as current tail's next node.
+            node.next = new Node<Card>(c, null);
+
+            tailCard = c;
+
+        }
+
+    }
+
+    public Card moveTail() {
+        Card card = (Card) remove(indexOf(tailCard));
+
+        Node<Card> node = head;
+
+        // Get the new tail node.
+        while (node.next != null) {
+            node = node.next;
+        }
+
+        tailCard = node.value();
+
+
+        tailCard.setOpen(true);
+        openedIndex = indexOf(tailCard);
+
+
+        return card;
+    }
 
 
 }
