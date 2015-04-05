@@ -8,6 +8,7 @@ public class Card {
     private int cardIndex;
     private Value value;
     private Suit suit;
+    private boolean open;
 
     public Suit getSuit() {
         return suit;
@@ -19,6 +20,14 @@ public class Card {
 
     public String getColour() {
         return this.suit.getColor();
+    }
+
+    public boolean getOpen() {
+        return this.open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
     }
 
     public String toString() {

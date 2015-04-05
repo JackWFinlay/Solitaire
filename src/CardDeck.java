@@ -1,7 +1,7 @@
 /**
  * @author Jack Finlay - 1399273
  */
-public class CardDeck extends CircularlyLinkedList {
+public class CardDeck {
     public CircularlyLinkedList<Card> cards;
     public Card currentCard;
 
