@@ -17,15 +17,10 @@ public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
             return;
         }
 
-        Node<E> current = head;
+        Node<E> current = tail.next;
 
-        while (count < i) {
-            if (current.next == null) {
-                current.next = new Node<E>(null, null);
-                current = current.next;
-            } else {
-                current = current.next;
-            }
+        for (int j = 0; j < i; j++) {
+            current = current.next;
         }
 
         if (current == null) {
@@ -67,16 +62,10 @@ public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
 
     @Override
     public void set(int i, E o) {
-        int count = 0;
-        Node<E> current = head;
+        Node<E> current = tail.next;
 
-        while (count < i) {
-            if (current.next == null) {
-                current.next = new Node<E>(null, null);
-                current = current.next;
-            } else {
-                current = current.next;
-            }
+        for (int j = 0; j < i; j++) {
+            current = current.next;
         }
 
         if (current == null) {

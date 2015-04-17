@@ -5,6 +5,8 @@ public class CardStack {
     protected Stack<Card> stack;
 
     public void add(Card c) {
-        stack.push(c);
+        if ((c.getValue() - stack.peek().getValue() == 1) && c.getSuit() == stack.peek().getSuit()) {
+            stack.push(c);
+        }
     }
 }

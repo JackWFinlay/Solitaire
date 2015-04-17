@@ -6,6 +6,12 @@ public class Solitaire {
     private CardStack[] stacks;
     private CardList[] lists;
 
+    public Solitaire() {
+
+
+    }
+
+
     public static void main(String[] args) {
         Solitaire solitaire = new Solitaire();
         showGUI(solitaire);

@@ -10,6 +10,21 @@ public class Card {
     private Suit suit;
     private boolean open;
 
+    public Card(int cardIndex, Value value, Suit suit) {
+        this.cardIndex = cardIndex;
+        this.value = value;
+        this.suit = suit;
+        this.open = false;
+    }
+
+    public int getCardIndex() {
+        return cardIndex;
+    }
+
+    public void setCardIndex(int cardIndex) {
+        this.cardIndex = cardIndex;
+    }
+
     public Suit getSuit() {
         return suit;
     }
