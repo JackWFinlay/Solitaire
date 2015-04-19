@@ -5,17 +5,43 @@ public class CardDeck {
     public CircularlyLinkedList<Card> cards;
     public Card currentCard;
 
+    public CardDeck() {
+        cards = new CircularlyLinkedList<Card>();
+        currentCard = null;
+    }
+
     public Card drawCard() {
-        Card card = cards.get(cards.indexOf(currentCard) + 1);
+        if (currentCard != null) {
+            currentCard.setOpen(false);
+        }
+
+        currentCard = cards.get(cards.indexOf(currentCard) - 1);
+        Card card = cards.get(cards.indexOf(currentCard));
+
 
         if (card == cards.tail.value()) {
             card = null;
+        }
+
+        if (card != null) {
+            card.setOpen(true);
         }
 
         return card;
     }
 
     public Card takeCard() {
-        return cards.remove(currentCard);
+        Card card = cards.remove(currentCard);
+        drawCard();
+
+        return card;
+
+    }
+
+    public void add(Card card) {
+        cards.add(cards.indexOf(currentCard) + 1, card);
+        currentCard = card;
     }
 }
+
+

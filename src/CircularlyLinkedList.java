@@ -17,14 +17,14 @@ public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
             return;
         }
 
-        Node<E> current = tail.next;
+        Node<E> current = head;
 
         for (int j = 0; j < i; j++) {
             current = current.next;
         }
 
         if (current == null) {
-            current = new Node<E>(o, tail.next);
+            current = new Node<E>(o, head);
             tail = current;
         } else {
             current.next = current;
@@ -41,7 +41,7 @@ public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
 
         if (i < count) {
 
-            Node<E> current = tail.next;
+            Node<E> current = head;
             for (int j = 0; j < (i - 1); j++) {
                 // Node before the one you want to remove.
                 current = current.next;
@@ -62,7 +62,7 @@ public class CircularlyLinkedList<E> extends SinglyLinkedList<E> {
 
     @Override
     public void set(int i, E o) {
-        Node<E> current = tail.next;
+        Node<E> current = head;
 
         for (int j = 0; j < i; j++) {
             current = current.next;
