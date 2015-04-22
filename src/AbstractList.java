@@ -2,7 +2,7 @@
  * @author Jack Finlay - 1399273
  */
 public abstract class AbstractList<E> implements List<E> {
-    @Override
+
     public boolean contains(E value) {
         return (indexOf(value) != -1);
     }

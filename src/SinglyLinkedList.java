@@ -16,7 +16,7 @@ public class SinglyLinkedList<E> extends AbstractList<E> {
         Node<E> pointer = head;
         int index = 0;
 
-        while (pointer != null && !pointer.value().equals(0)) {
+        while (pointer != null && (pointer.value() != o)) {
             pointer = pointer.next();
             index++;
         }
@@ -32,7 +32,7 @@ public class SinglyLinkedList<E> extends AbstractList<E> {
     @Override
     public E get(int i) {
         E value = null;
-        if (i < count) {
+        if (i <= count) {
             Node<E> current = head;
 
             for (int j = 0; j < i; j++) {
@@ -47,27 +47,27 @@ public class SinglyLinkedList<E> extends AbstractList<E> {
 
     @Override
     public void add(int i, E o) {
-
         if (i < 0 || i > count) {
             return;
         }
 
-        Node<E> current = head;
+        if (head == null) {
 
-        while (count < i) {
-            if (current.next == null) {
-                current.next = new Node<E>(null, null);
-                current = current.next;
-            } else {
+            head = new Node<E>(o, null);
+
+        } else {
+            Node<E> current = head;
+
+            for (int j = 0; j < i; j++) {
                 current = current.next;
             }
-        }
 
-        if (current == null) {
-            current = new Node<E>(o, null);
-        } else {
-            current.next = current;
-            current = new Node<E>(o, current.next);
+            if (current == null) {
+                current = new Node<E>(o, null);
+            } else {
+                current.next = current;
+                current = new Node<E>(o, current.next);
+            }
         }
 
         count++;
@@ -98,13 +98,8 @@ public class SinglyLinkedList<E> extends AbstractList<E> {
         int count = 0;
         Node<E> current = head;
 
-        while (count < i) {
-            if (current.next == null) {
-                current.next = new Node<E>(null, null);
-                current = current.next;
-            } else {
-                current = current.next;
-            }
+        for (int j = 0; j < i; j++) {
+            current = current.next;
         }
 
         if (current == null) {

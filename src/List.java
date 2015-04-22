@@ -2,7 +2,6 @@
  * @author Jack Finlay - 1399273
  */
 public interface List<E> extends Structure {
-    public boolean contains(E value);
 
     public int indexOf(E value);
 
