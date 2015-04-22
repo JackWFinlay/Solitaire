@@ -24,6 +24,7 @@ public class Solitaire {
         System.out.println();
 
         for (int i = 1; i <= 7; i++) {
+            lists[i] = new CardList();
             for (int j = 1; j <= i; j++) {
                 Card card = deck.takeCard();
                 lists[i].add(card);
