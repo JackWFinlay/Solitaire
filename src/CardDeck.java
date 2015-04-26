@@ -15,7 +15,7 @@ public class CardDeck {
             currentCard.setOpen(false);
         }
 
-        currentCard = cards.get(cards.indexOf(currentCard) - 1);
+        currentCard = cards.get(cards.indexOf(currentCard));
         Card card = cards.get(cards.indexOf(currentCard));
 
 
@@ -32,6 +32,7 @@ public class CardDeck {
 
     public Card takeCard() {
         Card card = cards.remove(currentCard);
+        currentCard = cards.get(0);
         drawCard();
 
         return card;
@@ -39,7 +40,7 @@ public class CardDeck {
     }
 
     public void add(Card card) {
-        cards.add(cards.indexOf(currentCard) + 1, card);
+        cards.add(cards.size(), card);
         currentCard = card;
     }
 }

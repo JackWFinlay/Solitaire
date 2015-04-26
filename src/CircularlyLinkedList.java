@@ -24,6 +24,7 @@ public class CircularlyLinkedList<E> extends AbstractList<E> {
                 current = current.next();
                 index++;
             }
+
             if (current != null) {
                 return index--;
             } else {
@@ -34,7 +35,12 @@ public class CircularlyLinkedList<E> extends AbstractList<E> {
 
     @Override
     public E get(int i) {
-        return null;
+        Node<E> current = tail.next;
+
+        for (int j = 0; j < i; j++) {
+            current = current.next();
+        }
+        return (E) current.value();
     }
 
     @Override
@@ -44,8 +50,14 @@ public class CircularlyLinkedList<E> extends AbstractList<E> {
         }
 
 
-        if (tail == null) {
+        if (count == 0) {
             tail = new Node<E>(o, null);
+
+        } else if (count == 1) {
+
+            Node<E> node = new Node<E>(o, tail);
+            tail.setNext(node);
+
         } else {
 
             Node<E> current = tail.next;
@@ -58,8 +70,9 @@ public class CircularlyLinkedList<E> extends AbstractList<E> {
                 current = new Node<E>(o, tail.next);
                 tail = current;
             } else {
-                current.next = current;
-                current = new Node<E>(o, current.next);
+
+                current.next = new Node<E>(o, current.next);
+
             }
         }
         count++;
@@ -70,15 +83,22 @@ public class CircularlyLinkedList<E> extends AbstractList<E> {
     public E remove(int i) {
         E element = null;
 
-        if (i < count) {
 
+        if (i < count) {
             Node<E> current = tail.next;
+
             for (int j = 0; j < (i - 1); j++) {
                 // Node before the one you want to remove.
                 current = current.next;
             }
 
-            element = (E) current.next.value();
+            if (i == count - 1) { // remove last
+                element = (E) tail.value();
+                current.setNext(tail.next);
+                tail = current;
+            } else {
+                element = (E) current.next.value();
+            }
 
             if (element == tail.next.value()) {
                 tail.next = current.next.next;
@@ -86,8 +106,9 @@ public class CircularlyLinkedList<E> extends AbstractList<E> {
 
             current.next = current.next.next;
 
-            count--;
+
         }
+        count--;
 
         return element;
     }

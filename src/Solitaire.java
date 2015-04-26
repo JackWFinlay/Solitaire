@@ -18,19 +18,27 @@ public class Solitaire {
 
         for (Card card : cards) {
             deck.add(card);
-            System.out.println(deck.currentCard.toString());
+        }
+
+
+        for (Card card : cards) {
+            System.out.println(card.toString());
         }
 
         System.out.println();
 
-        for (int i = 1; i <= 7; i++) {
+        for (int i = 0; i < 7; i++) {
             lists[i] = new CardList();
-            for (int j = 1; j <= i; j++) {
+            for (int j = 0; j <= i; j++) {
                 Card card = deck.takeCard();
                 lists[i].add(card);
                 System.out.println(card.toString());
             }
             System.out.println();
+        }
+
+        for (Card card : cards) {
+            System.out.println(card.toString());
         }
 
     }

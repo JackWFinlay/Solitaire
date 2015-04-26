@@ -3,17 +3,23 @@
  */
 
 @SuppressWarnings("unchecked")
-public class CardList extends SinglyLinkedList {
+public class CardList {
     private SinglyLinkedList<Card> cards;
     private int openedIndex;
     private Card tailCard;
 
+    public CardList() {
+        cards = new SinglyLinkedList<Card>();
+        openedIndex = 0;
+        tailCard = null;
+    }
+
     public SinglyLinkedList<Card> cut(int index) {
         SinglyLinkedList cutList = null;
 
-        if (index < count) {
+        if (index < cards.count) {
             cutList = new SinglyLinkedList();
-            Node<Card> node = head;
+            Node<Card> node = cards.head;
 
 
             // Get node before index
@@ -44,7 +50,7 @@ public class CardList extends SinglyLinkedList {
         if ((other.tailCard.getColour().equals(tailCard.getColour())) &&
                 (other.tailCard.getValue() - this.cards.head.value().getValue() == 1)) {
 
-            Node<Card> node = other.head;
+            Node<Card> node = other.cards.head;
 
             // Get tail node.
             while (node.next != null) {
@@ -59,30 +65,35 @@ public class CardList extends SinglyLinkedList {
     }
 
     public void add(Card c) {
-        // Check not the same colour, and head of this list is one less than the tail of other.
-        if ((tailCard.getColour().equals(c.getColour())) &&
-                (tailCard.getValue() - c.getValue() == 1)) {
 
-            Node node = head;
-
-            // Get tail node.
-            while (node.next != null) {
-                node = node.next;
-            }
-
-            // Add c as current tail's next node.
-            node.next = new Node<Card>(c, null);
-
+        if (cards.size() <= 0) {
+            cards.add(0, c);
             tailCard = c;
+        } else {
+            // Check not the same colour, and head of this list is one less than the tail of other.
+            if ((tailCard.getColour().equals(c.getColour())) &&
+                    (tailCard.getValue() - c.getValue() == 1)) {
 
+                Node node = cards.head;
+
+                // Get tail node.
+                while (node.next != null) {
+                    node = node.next;
+                }
+
+                // Add c as current tail's next node.
+                node.next = new Node<Card>(c, null);
+
+                tailCard = c;
+
+            }
         }
-
     }
 
     public Card moveTail() {
-        Card card = (Card) remove(indexOf(tailCard));
+        Card card = (Card) cards.remove(cards.indexOf(tailCard));
 
-        Node<Card> node = head;
+        Node<Card> node = cards.head;
 
         // Get the new tail node.
         while (node.next != null) {
@@ -93,7 +104,7 @@ public class CardList extends SinglyLinkedList {
 
 
         tailCard.setOpen(true);
-        openedIndex = indexOf(tailCard);
+        openedIndex = cards.indexOf(tailCard);
 
 
         return card;
