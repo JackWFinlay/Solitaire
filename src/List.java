@@ -13,6 +13,4 @@ public interface List<E> extends Structure {
 
     public E remove(int i);
 
-    public void set(int i, E o);
-
 }

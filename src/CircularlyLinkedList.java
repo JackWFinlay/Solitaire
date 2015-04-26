@@ -3,7 +3,7 @@
  */
 public class CircularlyLinkedList<E> extends AbstractList<E> {
     int count;
-    protected Node<E> tail;
+    protected CircularNode<E> tail;
 
     public CircularlyLinkedList() {
         tail = null;
@@ -19,7 +19,7 @@ public class CircularlyLinkedList<E> extends AbstractList<E> {
             return -1;
         } else {
 
-            Node<E> current = tail.next;
+            CircularNode<E> current = tail.next;
             while (current != null && !current.value().equals(value)) {
                 current = current.next();
                 index++;
@@ -35,12 +35,28 @@ public class CircularlyLinkedList<E> extends AbstractList<E> {
 
     @Override
     public E get(int i) {
-        Node<E> current = tail.next;
+        CircularNode<E> current = tail.next;
+
 
         for (int j = 0; j < i; j++) {
             current = current.next();
         }
         return (E) current.value();
+    }
+
+    public CircularNode<E> getNode(int i) {
+        if (i < 0 || i >= count) {
+            return null;
+        }
+        CircularNode<E> pointer = tail.next();
+        if (i == 0) {
+            return pointer;
+        }
+        while (i > 1) {
+            pointer = pointer.next();
+            i--;
+        }
+        return pointer;
     }
 
     @Override
@@ -49,30 +65,25 @@ public class CircularlyLinkedList<E> extends AbstractList<E> {
             return;
         }
 
-
         if (count == 0) {
-            tail = new Node<E>(o, null);
-
-        } else if (count == 1) {
-
-            Node<E> node = new Node<E>(o, tail);
-            tail.setNext(node);
-
+            CircularNode<E> firstNode = new CircularNode<E>(o, null, null);
+            tail = firstNode;
         } else {
 
-            Node<E> current = tail.next;
+            if (i == 0) {
+                CircularNode<E> nodeToAdd = new CircularNode<E>(o, null, tail.next().next());
+                tail.next().setNext(nodeToAdd);
+            } else if (count == 1) {
 
-            for (int j = 0; j < i; j++) {
-                current = current.next;
-            }
+                CircularNode<E> node = new CircularNode<E>(o, tail, tail);
+                tail.setNext(node);
+                tail.setPrevious(node);
 
-            if (current == null) {
-                current = new Node<E>(o, tail.next);
-                tail = current;
             } else {
-
-                current.next = new Node<E>(o, current.next);
-
+                CircularNode<E> previousNode = getNode(i - 1);
+                CircularNode<E> nodeToAdd = new CircularNode<E>(o, previousNode, previousNode.next());
+                previousNode.next().setPrevious(nodeToAdd);
+                previousNode.setNext(nodeToAdd);
             }
         }
         count++;
@@ -81,52 +92,22 @@ public class CircularlyLinkedList<E> extends AbstractList<E> {
 
     @Override
     public E remove(int i) {
-        E element = null;
-
-
-        if (i < count) {
-            Node<E> current = tail.next;
-
-            for (int j = 0; j < (i - 1); j++) {
-                // Node before the one you want to remove.
-                current = current.next;
-            }
-
-            if (i == count - 1) { // remove last
-                element = (E) tail.value();
-                current.setNext(tail.next);
-                tail = current;
-            } else {
-                element = (E) current.next.value();
-            }
-
-            if (element == tail.next.value()) {
-                tail.next = current.next.next;
-            }
-
-            current.next = current.next.next;
-
-
+        if (i < 0 || i >= count) {
+            return null;
+        }
+        E element;
+        if (i == 0) {
+            element = tail.next().value();
+            tail.setNext(getNode(i + 1));
+            tail.next().setPrevious(null);
+        } else {
+            CircularNode<E> current = getNode(i);
+            element = (E) current.value();
+            current.previous().setNext(current.next());
+            current.next().setPrevious(current.previous());
         }
         count--;
-
         return element;
-    }
-
-    @Override
-    public void set(int i, E o) {
-        Node<E> current = tail.next;
-
-        for (int j = 0; j < i; j++) {
-            current = current.next;
-        }
-
-        if (current == null) {
-            current = new Node<E>(o, tail.next);
-            tail = current;
-        } else {
-            current = new Node<E>(o, current.next);
-        }
     }
 
     @Override

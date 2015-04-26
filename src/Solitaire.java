@@ -11,6 +11,7 @@ public class Solitaire {
     public Solitaire() {
         deck = new CardDeck();
         lists = new CardList[7];
+        stacks = new CardStack[4];
         Card[] cards = createCards();
 
 
@@ -37,9 +38,7 @@ public class Solitaire {
             System.out.println();
         }
 
-        for (Card card : cards) {
-            System.out.println(card.toString());
-        }
+        System.out.println(deck.cards.size());
 
     }
 
