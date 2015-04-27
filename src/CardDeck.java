@@ -31,7 +31,7 @@ public class CardDeck {
     }
 
     public Card takeCard() {
-        Card card = cards.remove(cards.size() - 1);
+        Card card = cards.remove(currentCard);
         currentCard = cards.get(cards.size() - 1);
         drawCard();
 

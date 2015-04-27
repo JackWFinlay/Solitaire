@@ -19,12 +19,12 @@ public class Solitaire {
             stacks[i] = new CardStack();
         }
 
-
         Shuffle(cards);
 
         // Add all cards to deck
         for (Card card : cards) {
             deck.add(card);
+            //System.out.println(card);
         }
 
         // Populate lists, pulling from the deck.

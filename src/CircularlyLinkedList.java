@@ -35,13 +35,18 @@ public class CircularlyLinkedList<E> extends AbstractList<E> {
 
     @Override
     public E get(int i) {
-        CircularNode<E> current = tail.next;
+
+        if (i == 0) {
+            return (E) tail.value();
+        } else {
+            CircularNode<E> current = tail.next;
 
 
-        for (int j = 0; j < i; j++) {
-            current = current.next();
+            for (int j = 1; j < i; j++) {
+                current = current.next();
+            }
+            return (E) current.value();
         }
-        return (E) current.value();
     }
 
     public CircularNode<E> getNode(int i) {
@@ -52,9 +57,8 @@ public class CircularlyLinkedList<E> extends AbstractList<E> {
         if (i == 0) {
             return pointer;
         }
-        while (i > 1) {
+        for (int j = 0; j < i; j++) {
             pointer = pointer.next();
-            i--;
         }
         return pointer;
     }
@@ -78,7 +82,6 @@ public class CircularlyLinkedList<E> extends AbstractList<E> {
                 CircularNode<E> node = new CircularNode<E>(o, tail, tail);
                 tail.setNext(node);
                 tail.setPrevious(node);
-
             } else {
                 CircularNode<E> previousNode = getNode(i - 1);
                 CircularNode<E> nodeToAdd = new CircularNode<E>(o, previousNode, previousNode.next());
@@ -96,10 +99,16 @@ public class CircularlyLinkedList<E> extends AbstractList<E> {
             return null;
         }
         E element;
-        if (i == 0) {
+        if (i == 0) { // Remove first
             element = tail.next().value();
             tail.setNext(getNode(i + 1));
             tail.next().setPrevious(null);
+        } else if (count - 1 == i) { // Remove last
+            CircularNode<E> current = tail;
+            element = (E) current.value();
+            current.previous().setNext(current.next());
+            current.next().setPrevious(current.previous());
+            tail = current.previous();
         } else {
             CircularNode<E> current = getNode(i);
             element = (E) current.value();
