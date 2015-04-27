@@ -39,6 +39,8 @@ public class CardList {
                 tailCard.setOpen(true);
                 openedIndex = cards.indexOf(tailCard);
             }
+
+
         }
 
         return cutList;
@@ -64,6 +66,31 @@ public class CardList {
 
     }
 
+    public void initialAdd(Card c) {
+        // rules of black on red need not be applied in the initial add.
+
+        if (cards.size() <= 0) {
+            cards.add(0, c);
+            tailCard = c;
+        } else {
+            Node node = cards.head;
+
+            // Get tail node.
+            while (node.next != null) {
+                node = node.next;
+            }
+
+            // Add c as current tail's next node.
+            node.next = new Node<Card>(c, null);
+
+            tailCard = c;
+
+            openedIndex++;
+        }
+
+    }
+
+
     public void add(Card c) {
 
         if (cards.size() <= 0) {
@@ -86,12 +113,13 @@ public class CardList {
 
                 tailCard = c;
 
+                openedIndex++;
             }
         }
     }
 
     public Card moveTail() {
-        Card card = (Card) cards.remove(cards.indexOf(tailCard));
+        Card card = (Card) cards.remove(tailCard);
 
         Node<Card> node = cards.head;
 
@@ -110,5 +138,21 @@ public class CardList {
         return card;
     }
 
+    public String toString() {
+        String theString = "";
+        for (int i = 0; i < openedIndex; i++) {
+            theString += "Back-";
+        }
+
+        for (int i = openedIndex; i < cards.indexOf(tailCard) - 1; i++) {
+            theString += cards.get(i) + "-";
+        }
+
+        theString += tailCard.toString();
+        if (theString.equals("")) {
+            return "empty";
+        }
+        return theString;
+    }
 
 }

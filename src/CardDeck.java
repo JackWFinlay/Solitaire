@@ -32,8 +32,8 @@ public class CardDeck {
 
     public Card takeCard() {
         Card card = cards.remove(cards.size() - 1);
-        //currentCard = cards.get(cards.size()-1);
-        //drawCard();
+        currentCard = cards.get(cards.size() - 1);
+        drawCard();
 
         return card;
 
@@ -42,6 +42,18 @@ public class CardDeck {
     public void add(Card card) {
         cards.add(cards.size(), card);
         currentCard = card;
+    }
+
+    @Override
+    public String toString() {
+        String theString;
+
+        if (cards.size() > 0) {
+            theString = "Card Deck: Not Empty   Open Card: " + currentCard;
+        } else {
+            theString = "Card Deck: Empty";
+        }
+        return theString;
     }
 }
 

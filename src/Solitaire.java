@@ -14,32 +14,46 @@ public class Solitaire {
         stacks = new CardStack[4];
         Card[] cards = createCards();
 
+        //initialise card stacks
+        for (int i = 0; i < 4; i++) {
+            stacks[i] = new CardStack();
+        }
+
 
         Shuffle(cards);
 
+        // Add all cards to deck
         for (Card card : cards) {
             deck.add(card);
         }
 
-
-        for (Card card : cards) {
-            System.out.println(card.toString());
-        }
-
-        System.out.println();
-
+        // Populate lists, pulling from the deck.
         for (int i = 0; i < 7; i++) {
             lists[i] = new CardList();
             for (int j = 0; j <= i; j++) {
                 Card card = deck.takeCard();
-                lists[i].add(card);
-                System.out.println(card.toString());
+                lists[i].initialAdd(card);
+                //System.out.println(card.toString());
             }
-            System.out.println();
+            //System.out.println();
         }
 
-        System.out.println(deck.cards.size());
+        //System.out.println(deck.cards.size());
 
+
+        printUI();
+
+
+    }
+
+    private void printUI() {
+        System.out.println("--------------Current Setup--------------");
+        System.out.println(deck);
+        System.out.println("Card Stacks: " + stacks[0] + " " + stacks[1] + " " + stacks[2] + " " + stacks[3]);
+        System.out.println("Card Lists:");
+        for (int i = 0; i < 7; i++) {
+            System.out.println((i + 1) + ": " + lists[i]);
+        }
     }
 
     private Card[] createCards() {
