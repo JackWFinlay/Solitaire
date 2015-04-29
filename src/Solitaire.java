@@ -1,4 +1,7 @@
+
+
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * @author Jack Finlay - 1399273
@@ -7,6 +10,7 @@ public class Solitaire {
     private CardDeck deck;
     private CardStack[] stacks;
     private CardList[] lists;
+    private Solitaire solitaire;
 
     public Solitaire() {
         deck = new CardDeck();
@@ -39,9 +43,6 @@ public class Solitaire {
         }
 
         //System.out.println(deck.cards.size());
-
-
-        printUI();
 
 
     }
@@ -92,11 +93,51 @@ public class Solitaire {
     }
 
     private void executeCommand(String command) {
+        command = "";
+        Scanner c = new Scanner(System.in);
+        System.out.print("Enter a command: ");
+        command = c.nextLine();
+
+        String[] split = command.toLowerCase().split("\\s+");
+        if (command.contains("drawcard")) {
+
+            deck.drawCard();
+        } else if (command.contains("deckto")) {
+
+            if (Integer.parseInt(split[1]) >= 1 && Integer.parseInt(split[1]) <= 7) {
+                Card deckto = deck.takeCard();
+                deckto.setOpen(true);
+                if (deckto != null) {
+                    lists[Integer.parseInt(split[1]) - 1].add(deckto);
+
+                }
+            } else if (command.contains("restart")) {
+                restart();
+                printUI();
+
+            } else if (command.contains("link")) {
+                
+            } else if (command.contains("send")) {
+
+            }
+
+        } else if (command.contains("quit")) {
+
+            System.out.println("Thanks for playing.");
+            System.exit(0);
+        }
+    }
+
+    private void restart() {
 
     }
 
-    private void startGame() {
 
+    private void startGame() {
+        while (true) {
+            printUI();
+            executeCommand("");
+        }
     }
 
 }

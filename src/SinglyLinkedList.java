@@ -51,10 +51,18 @@ public class SinglyLinkedList<E> extends AbstractList<E> {
             return;
         }
 
-        if (head == null) {
+        if (head == null) { // Add first
 
             head = new Node<E>(o, null);
 
+        } else if (i == count) { // Add last
+            Node<E> current = head;
+
+            while (current.next != null) {
+                current = current.next();
+            }
+
+            current.setNext(new Node<E>(o, null));
         } else {
             Node<E> current = head;
 

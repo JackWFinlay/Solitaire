@@ -14,6 +14,10 @@ public class CardList {
         tailCard = null;
     }
 
+    public Card getTailCard() {
+        return tailCard;
+    }
+
     public SinglyLinkedList<Card> cut(int index) {
         SinglyLinkedList cutList = null;
 
@@ -73,15 +77,7 @@ public class CardList {
             cards.add(0, c);
             tailCard = c;
         } else {
-            Node node = cards.head;
-
-            // Get tail node.
-            while (node.next != null) {
-                node = node.next;
-            }
-
-            // Add c as current tail's next node.
-            node.next = new Node<Card>(c, null);
+            cards.add(cards.size(), c);
 
             tailCard = c;
 
@@ -101,19 +97,11 @@ public class CardList {
             if ((tailCard.getColour().equals(c.getColour())) &&
                     (tailCard.getValue() - c.getValue() == 1)) {
 
-                Node node = cards.head;
-
-                // Get tail node.
-                while (node.next != null) {
-                    node = node.next;
-                }
-
-                // Add c as current tail's next node.
-                node.next = new Node<Card>(c, null);
+                cards.add(cards.size(), c);
 
                 tailCard = c;
 
-                openedIndex++;
+                //openedIndex++;
             }
         }
     }
@@ -144,7 +132,7 @@ public class CardList {
             theString += "Back-";
         }
 
-        for (int i = openedIndex; i < cards.indexOf(tailCard) - 1; i++) {
+        for (int i = openedIndex; i < cards.indexOf(tailCard); i++) {
             theString += cards.get(i) + "-";
         }
 

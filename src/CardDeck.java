@@ -15,8 +15,8 @@ public class CardDeck {
             currentCard.setOpen(false);
         }
 
-        currentCard = cards.get(cards.indexOf(currentCard));
-        Card card = cards.get(cards.indexOf(currentCard));
+        currentCard = cards.get(cards.indexOf(currentCard) - 1);
+        Card card = cards.get(cards.indexOf(currentCard) - 1);
 
 
         if (card == cards.tail.value()) {
