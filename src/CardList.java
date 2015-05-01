@@ -1,5 +1,6 @@
 /**
  * @author Jack Finlay - 1399273
+ * @author Warrick Wills - 13831575
  */
 
 @SuppressWarnings("unchecked")
@@ -53,7 +54,7 @@ public class CardList {
 
     public void link(CardList other) {
         // Check not the same colour, and head of this list is one less than the tail of other.
-        if ((other.tailCard.getColour().equals(tailCard.getColour())) &&
+        if (!(other.tailCard.getColour().equals(tailCard.getColour())) &&
                 (other.tailCard.getValue() - this.cards.head.value().getValue() == 1)) {
 
             Node<Card> node = other.cards.head;
@@ -94,7 +95,7 @@ public class CardList {
             tailCard = c;
         } else {
             // Check not the same colour, and head of this list is one less than the tail of other.
-            if ((tailCard.getColour().equals(c.getColour())) &&
+            if (!(tailCard.getColour().equals(c.getColour())) &&
                     (tailCard.getValue() - c.getValue() == 1)) {
 
                 cards.add(cards.size(), c);

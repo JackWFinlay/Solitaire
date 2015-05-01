@@ -1,5 +1,6 @@
 /**
  * @author Jack Finlay - 1399273
+ * @author Warrick Wills - 13831575
  */
 public enum Value {
     ACE(1, "A"), TWO(2, "2"), THREE(3, "3"), FOUR(4, "4"), FIVE(5, "5"), SIX(6, "6"), SEVEN(7, "7"),

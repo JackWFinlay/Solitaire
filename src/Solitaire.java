@@ -1,16 +1,18 @@
-
-
 import java.util.Random;
 import java.util.Scanner;
 
 /**
  * @author Jack Finlay - 1399273
+ * @author Warrick Wills - 13831575
  */
 public class Solitaire {
     private CardDeck deck;
     private CardStack[] stacks;
     private CardList[] lists;
     private Solitaire solitaire;
+
+    boolean won = false;
+    boolean restart = false;
 
     public Solitaire() {
         deck = new CardDeck();
@@ -92,34 +94,37 @@ public class Solitaire {
 
     }
 
-    private void executeCommand(String command) {
-        command = "";
+    private void executeCommand() {
+        
         Scanner c = new Scanner(System.in);
         System.out.print("Enter a command: ");
-        command = c.nextLine();
+        String command = c.nextLine();
 
         String[] split = command.toLowerCase().split("\\s+");
         if (command.contains("drawcard")) {
 
             deck.drawCard();
         } else if (command.contains("deckto")) {
-
+            int index = Integer.parseInt(split[1]) - 1;
             if (Integer.parseInt(split[1]) >= 1 && Integer.parseInt(split[1]) <= 7) {
-                Card deckto = deck.takeCard();
-                deckto.setOpen(true);
-                if (deckto != null) {
-                    lists[Integer.parseInt(split[1]) - 1].add(deckto);
-
+                if (!(deck.currentCard.getColour().equals(lists[index].getTailCard().getColour())) &&
+                        (lists[index].getTailCard().getValue() - deck.currentCard.getValue() == 1)) {
+                    Card deckto = deck.takeCard();
+                    deckto.setOpen(true);
+                    if (deckto != null) {
+                        lists[index].add(deckto);
+                    }
                 }
-            } else if (command.contains("restart")) {
-                restart();
-                printUI();
-
-            } else if (command.contains("link")) {
-                
-            } else if (command.contains("send")) {
-
             }
+
+        } else if (command.contains("restart")) {
+            restart();
+
+        } else if (command.contains("link")) {
+
+        } else if (command.contains("send")) {
+               
+            
 
         } else if (command.contains("quit")) {
 
@@ -129,14 +134,15 @@ public class Solitaire {
     }
 
     private void restart() {
-
+        Solitaire sol = new Solitaire();
+        sol.startGame();
     }
 
 
     private void startGame() {
-        while (true) {
+        while (!won) {
             printUI();
-            executeCommand("");
+            executeCommand();
         }
     }
 
